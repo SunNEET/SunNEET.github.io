@@ -317,7 +317,7 @@
                 
               
 
-              <time title="Created: 2018-05-02 17:10:34 / Modified: 17:13:22" itemprop="dateCreated datePublished" datetime="2018-05-02T17:10:34+08:00">2018-05-02</time>
+              <time title="Created: 2018-05-02 17:10:34 / Modified: 18:05:19" itemprop="dateCreated datePublished" datetime="2018-05-02T17:10:34+08:00">2018-05-02</time>
             
 
             
@@ -356,8 +356,7 @@
 
       
         
-          
-            <p>其實目前只做了不到1/5的Array Tag題，詳細的註解我有打在 <a href="https://github.com/SunNEET/LeetCode/tree/master/Array" target="_blank" rel="noopener">Github</a> 裡，但怕忘記一些題目的主要思路，為了以後快速review，所以想把一些想法先記錄下來。</p>
+          <p>其實目前只做了不到1/5的Array Tag題，詳細的註解我有打在 <a href="https://github.com/SunNEET/LeetCode/tree/master/Array" target="_blank" rel="noopener">Github</a> 裡，但怕忘記一些題目的主要思路，為了以後快速review，所以想把一些想法先記錄下來。</p>
 <p>做題的順序是按照 <a href="https://siddontang.gitbooks.io/leetcode-solution/content/" target="_blank" rel="noopener">這裡</a> 的內容，大部分都是兩年前的舊題目，打算等這些都刷過以後再來做新題。</p>
 <h3 id="Problem-List"><a href="#Problem-List" class="headerlink" title="Problem List"></a>Problem List</h3><ul>
 <li>1 - Two Sum</li>
@@ -372,110 +371,14 @@
 <li>118 - Pascal’s Triangle</li>
 <li>119 - Pascal’s Triangle II</li>
 <li>153 - Find Minimum in Rotated Sorted Array</li>
-<li>154 - Find Minimum in Rotated Sorted Array II</li>
-</ul>
-<h4 id="1-Two-Sum"><a href="#1-Two-Sum" class="headerlink" title="1 - Two Sum"></a>1 - Two Sum</h4><ul>
-<li>題意：給一個int數組和一個target，求出這個數組中兩個值的和等於這個target的index。</li>
-<li>思路：<ol>
-<li>(X)雙層for迴圈爆搜。 - O(N^2)</li>
-<li>(O)先掃一次建hash，然後在枚舉的時候直接看target-a[cur]在hash裡存不存在，<strong>存在的話還要排除同位置的index</strong>。 - O(N)</li>
-</ol>
-</li>
-</ul>
-<h4 id="15-3Sum"><a href="#15-3Sum" class="headerlink" title="15 - 3Sum"></a>15 - 3Sum</h4><ul>
-<li>題意：給定一個int數組，找出滿足a[i]+a[j]+a[k]=0的所有組合，組合不能重複且要從小排到大。</li>
-<li>思路：<ol>
-<li>先sort，這樣後續枚舉出來的組合就會從小排到大。</li>
-<li>枚舉i，然後j和k設為i右邊區間的左右邊界，慢慢縮小範圍來逼近可能的組合。</li>
-<li>枚舉或縮邊界的過程中遇到跟前一個值一樣的就直接跳過，避免重複。</li>
-<li>O(N^2)</li>
-</ol>
-</li>
-</ul>
-<h4 id="16-3Sum-Closest"><a href="#16-3Sum-Closest" class="headerlink" title="16 - 3Sum Closest"></a>16 - 3Sum Closest</h4><ul>
-<li>題意：給定一個int數組和一個具體的值，要求找出在這數組中三個元素的sum和這個給定的值差距最小。</li>
-<li>思路：<ol>
-<li>差異最小就是0。</li>
-<li>縮小左右邊界的技巧跟 15 差不多，差在這題無論如何都有解，需要一直更新差距的最小值。</li>
-<li>O(N^2)</li>
-</ol>
-</li>
-</ul>
-<h4 id="18-4Sum"><a href="#18-4Sum" class="headerlink" title="18 - 4Sum"></a>18 - 4Sum</h4><ul>
-<li>題意：給定一個int數組，找出滿足 a[i]+a[j]+a[k]+[l]=target 的所有組合。</li>
-<li>思路：<ol>
-<li>可以完全延用3Sum的方法，只是外圈變雙層枚舉 - O(N^3)</li>
-<li>有另一個用空間換時間的方法，可以做到O(N^2)。就是像 1 那樣把兩個數的組合先存到map，然後再枚舉兩個數去map查找target-(a[l]+a[k])。</li>
-<li><strong>建map和枚舉的正反方向很重要，這會決定我們在處理連續重複的值時，被留下的會是最左邊還是最右邊的值。</strong></li>
-<li>用 i&gt;l 判斷是否有抓到相同的index</li>
-</ol>
-</li>
-</ul>
-<h4 id="26-Remove-Duplicates-from-Sorted-Array"><a href="#26-Remove-Duplicates-from-Sorted-Array" class="headerlink" title="26 - Remove Duplicates from Sorted Array"></a>26 - Remove Duplicates from Sorted Array</h4><ul>
-<li>題意：在一個排序好的數組裡面刪除重複的元素。</li>
-<li>思路：<ol>
-<li>兩個 index i , j 掃過去，一個用來掃到底找出不是題目要移除的值，另一個用來把這些值複寫到原本的index上。</li>
-<li>就算有重複的，第一個值也會被保留，所以遇到下一個不重複的<strong>是先將 j+1 再 assign</strong>。</li>
-<li>O(N)</li>
-</ol>
-</li>
-</ul>
-<h4 id="27-Remove-Element"><a href="#27-Remove-Element" class="headerlink" title="27 - Remove Element"></a>27 - Remove Element</h4><ul>
-<li>題意：從數組裡移除指定的value，並return新數組長度。乍看是水題，但題目要求<code>in-place</code>，就不能再開一個數組。</li>
-<li>思路：<ol>
-<li>兩個 index i , j 掃過去，一個用來掃到底找出不是題目要移除的值，另一個用來把這些值複寫到原本的index上。</li>
-<li>O(N)</li>
-</ol>
-</li>
-</ul>
-<h4 id="66-Plus-One"><a href="#66-Plus-One" class="headerlink" title="66 - Plus One"></a>66 - Plus One</h4><ul>
-<li>題意：把陣列看成十進位數，然後加1。</li>
-<li>思路：<ol>
-<li>從後面直接加，然後判斷有沒有進位，水題。</li>
-<li><strong>edge case：加完以後 carry 還 =1 的話，最前面要補 1。</strong></li>
-</ol>
-</li>
-</ul>
-<h4 id="80-Remove-Duplicates-from-Sorted-Array-II"><a href="#80-Remove-Duplicates-from-Sorted-Array-II" class="headerlink" title="80 - Remove Duplicates from Sorted Array II"></a>80 - Remove Duplicates from Sorted Array II</h4><ul>
-<li>題意：類似26，但可以每個數可以重複一次。</li>
-<li>思路：跟26的做法類似，只是要多用一個cnt紀錄重複的次數。</li>
-</ul>
-<h4 id="88-Merge-Sorted-Array"><a href="#88-Merge-Sorted-Array" class="headerlink" title="88 - Merge Sorted Array"></a>88 - Merge Sorted Array</h4><ul>
-<li>題意：兩個排序好的數組a,b，要把b合到a上 。</li>
-<li>思路：<ol>
-<li>這題必須由後往前掃，因為題目要求直接把b合到a上，從前面放的話會蓋掉nums1原本的值而影響接下來的比較。</li>
-<li>i一開始指向a的第m-1個元素，j指向b的最後一個，k指向a的最後一個位置，負責填新內容。</li>
-<li>edge case: k到底，前i跟j就見底(-1)的話要特判，不然繼續讓他們比較會爆炸。</li>
-</ol>
-</li>
-</ul>
-<h4 id="118-Pascal’s-Triangle"><a href="#118-Pascal’s-Triangle" class="headerlink" title="118 - Pascal’s Triangle"></a>118 - Pascal’s Triangle</h4><ul>
-<li>題意：就輸出帕斯卡三角形。</li>
-<li>思路：直接做，水題。</li>
-</ul>
-<h4 id="119-Pascal’s-Triangle-II"><a href="#119-Pascal’s-Triangle-II" class="headerlink" title="119 - Pascal’s Triangle II"></a>119 - Pascal’s Triangle II</h4><ul>
-<li>題意：輸出帕斯卡三角形的某一層，限制O(N)空間複雜度，所以不能開二維vec。</li>
-<li>思路：<ol>
-<li>限定一維處理，所以必須靠滾動的方式一直更新當前array的value, 但又不能讓更新的value影響後面還沒計算的結果。</li>
-<li>先初始化一個size符合第n層的vector並且全部設成1。</li>
-<li>接著在滾動時採取從後面往回滾的做法，這樣能讓左邊的值不被影響(a[j] = a[j-1] + a[j])，同時最右邊也已經補1了。</li>
-</ol>
-</li>
-</ul>
-<h4 id="153-Find-Minimum-in-Rotated-Sorted-Array"><a href="#153-Find-Minimum-in-Rotated-Sorted-Array" class="headerlink" title="153 - Find Minimum in Rotated Sorted Array"></a>153 - Find Minimum in Rotated Sorted Array</h4><h4 id="154-Find-Minimum-in-Rotated-Sorted-Array-II"><a href="#154-Find-Minimum-in-Rotated-Sorted-Array-II" class="headerlink" title="154 - Find Minimum in Rotated Sorted Array II"></a>154 - Find Minimum in Rotated Sorted Array II</h4><ul>
-<li>題意：找出陣列中的最小元素</li>
-<li>思路：<ol>
-<li>無腦做就是O(N)掃過去。</li>
-<li>但可以用在O(logN)時間內完成，因為是排序過的數組，雖然會遇到旋轉，但可以套二分搜的觀念</li>
-<li>如果區間a[end]&gt;a[start]，表示這個區間是有序的，直接回傳a[start]</li>
-<li>在有rotate過的情況，如果a[min]&gt;a[start]，代表最小值會在右邊的區間，反之亦然</li>
-<li>No.154 會有重複的元素，但a[min]==a[start]的情況，最小值可能在左邊也可能在右邊</li>
-<li>遇到這情況就只能一次縮一點邊界，然後再重新比較一次a[mid]跟a[start]</li>
-</ol>
-</li>
-</ul>
-
-          
+<li>154 - Find Minimum in Rotated Sorted Array II
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/05/02/LeetCode-Array類題目小結/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
